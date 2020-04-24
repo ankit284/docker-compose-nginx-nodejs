@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+    node1:
+        build:
+          context: "./node"
+        image: "n1:latest"
+        networks:
+            - frontend
+        ports:
+          - "8070:7070"
+    node2:
+        build:
+          context: "./node" 
+        image: "n1:latest"
+        networks:
+            - frontend
+        ports:
+          - "9070:7070"
+    nginx:
+        build:
+          context: "./nginx"
+        image: "ng1:latest"
+        ports:
+            - "8080:80"
+        depends_on:
+          - "node1"
+          - "node2"
+        networks:
+            - frontend
+networks:
+    frontend:
+
